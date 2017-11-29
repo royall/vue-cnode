@@ -67,7 +67,7 @@
 </script>
 
 <style>
-  .header-img{ float:left}
+  .header-img{ float:left; width:120px; height:120px}
   .user-info-right{
     margin-left:140px;
   }
