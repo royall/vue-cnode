@@ -3,6 +3,7 @@
     <div class="navbar-inner">
       <div class="container">
         <div class="right-links">
+          <a href="#/">首页</a> | 
           <a v-if="!isLogin">登录</a>
           <a v-if="isLogin">退出</a>
         </div>

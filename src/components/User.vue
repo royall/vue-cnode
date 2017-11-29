@@ -2,9 +2,15 @@
 
   <div class="container">
     <div class="panel panel-default">
-      <div class="panel-heading">
-      </div>
+      <div class="panel-heading">用户信息</div>
       <div class="panel-body">
+        <img :src="user.avatar_url" class="header-img"/>
+        <div class="user-info-right">
+          <strong>{{user.loginname}}</strong> <br>
+          github:<a class="dark" :href="githubUrl" target="_blank">@{{user.githubUsername}}</a><br>
+          {{user.score}}积分<br>
+          注册时间：{{formatDate(user.create_at)}}
+        </div>
       </div>
     </div>
 
@@ -27,6 +33,7 @@
 
 <script>
   import api from '@/common/api';
+  import Utils from '@/common/Utils';
   import TopicList from '@/components/TopicList';
 
   export default {
@@ -39,19 +46,29 @@
         user:{}
       }
     },
+    computed:{
+      githubUrl(){
+        return 'https://github.com/'+this.user.githubUsername;
+      }
+    },
     created() {
       let loginname=this.$route.params.loginname;
       api.getUser(loginname).then((res) => {
         console.log('res', res.data);
         this.user = res.data.data;
       });
-    }
+    },
+    methods: {
+      formatDate(str) {
+        return Utils.formatDate(str)
+      }
+    },
   }
 </script>
 
 <style>
-  .avatar{
-    width:30px;
-    height:30px
+  .header-img{ float:left}
+  .user-info-right{
+    margin-left:140px;
   }
 </style>
