@@ -4,22 +4,38 @@
       <div class="container">
         <div class="right-links">
           <a href="#/">首页</a> |
-          <a v-if="!isLogin">登录</a>
+          <a v-if="!isLogin" @click="login">登录</a>
           <a v-if="isLogin">退出</a>
         </div>
       </div>
     </div>
+    <Login :show="showLogin" @changeShow="changeLoginShow"></Login>
   </header>
 </template>
 
 <script>
+  import Login from "./Login"
+
   export default {
     name: 'Top',
+    components:{
+      Login
+    },
     data() {
       return {
-        isLogin:false
+        isLogin:0,
+        showLogin:0
       }
-    }
+    },
+    methods:{
+      login(){
+        this.showLogin=1;
+      },
+      changeLoginShow(val){
+        this.showLogin=val;
+      }
+    },
+
   }
 </script>
 
