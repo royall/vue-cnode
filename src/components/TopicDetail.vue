@@ -4,7 +4,7 @@
       <div class="panel-body">
         <h3 class="title">{{topic.title}}</h3>
         <div class="meta">
-          发布于 {{createTime}} | 作者 <router-link :to="{name:'User',params:{loginname:topic.author.loginname}}">{{topic.author.loginname}}</router-link>  |  {{topic.visit_count}}次浏览  | 分类 <router-link :to="{name:'Topics',query:{tab:topic.tab}}">{{tabDesc}}</router-link>
+          发布于 {{createTime}} | 作者 <router-link :to="{name:'User',params:{loginname:topic.author.loginname}}">{{topic.author.loginname}}</router-link>  |  {{topic.visit_count}}次浏览  | 分类 <router-link :to="{name:'Topics',params:{tab:topic.tab},query:{page:1}}">{{tabDesc}}</router-link>
         </div>
         <article v-html="topic.content"></article>
         <div class="panel panel-default">
