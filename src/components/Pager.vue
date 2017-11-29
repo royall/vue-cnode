@@ -7,7 +7,7 @@
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
-      <router-link exact-active-class="active" tag="li" v-for="p in pageObj" :to="{path:path,query:{tab:tab,page:p.page}}"><a>{{p.page}}</a></router-link>
+      <router-link exact-active-class="active" tag="li" v-for="p in pageObj" :to="{name:name,params:{tab:tab},query:{page:p.page}}" :key="p.page"><a>{{p.page}}</a></router-link>
       <li>
         <a href="#" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
@@ -23,7 +23,7 @@
     props:{
       page:Number,
       tab:String,
-      path:String
+      name:String
     },
     computed:{
       pageObj(){

@@ -1,20 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/components/Index'
-import TopicDetail from '@/components/TopicDetail'
-import User from '@/components/User'
+import Index from '../components/Index'
+import TopicDetail from '../components/TopicDetail'
+import User from '../components/User'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Index',
-      redirect: '/topics'
+      redirect: {path: '/topics'}
     },
     {
       path: '/topics',
+      redirect: {path: '/topics/all', query: {page: 1}}
+    },
+    {
+      path: '/topics/:tab',
       name: 'Topics',
       component: Index
     },

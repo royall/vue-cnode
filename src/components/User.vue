@@ -32,9 +32,9 @@
 </template>
 
 <script>
-  import api from '@/common/api';
-  import Utils from '@/common/Utils';
-  import TopicList from '@/components/TopicList';
+  import api from '../common/api';
+  import utils from '../common/utils';
+  import TopicList from '../components/TopicList';
 
   export default {
     name: 'User',
@@ -60,7 +60,7 @@
     },
     methods: {
       formatDate(str) {
-        return Utils.formatDate(str)
+        return utils.formatDate(str)
       }
     },
   }

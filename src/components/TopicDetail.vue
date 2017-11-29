@@ -28,8 +28,8 @@
 </template>
 
 <script>
-  import api from '@/common/api';
-  import Utils from '@/common/Utils';
+  import api from '../common/api';
+  import utils from '../common/utils';
 
   export default {
     name: 'TopicDetail',
@@ -52,7 +52,7 @@
     },
     methods: {
       formatDate(str) {
-        return Utils.formatDate(str)
+        return utils.formatDate(str)
       },
       checkContent(str){
         return str.replace(/(\/user\/\S+">\S+<\/a>)/g,'#$1');
@@ -70,7 +70,7 @@
         return map[this.topic.tab]
       },
       createTime() {
-        return Utils.formatDate(this.topic.create_at);
+        return utils.formatDate(this.topic.create_at);
       }
     }
 
