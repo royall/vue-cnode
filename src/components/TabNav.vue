@@ -1,25 +1,17 @@
 <template>
   <ul class="nav nav-pills">
-    <router-link role="presentation" tag="li" :to="{name:'Topics',params:{tab:'all'},query:{page:1}}" active-class="active"><a>全部</a>
+    <router-link v-for="(v,k) in tabs" role="presentation" tag="li" :to="{name:'Topics',params:{tab:k},query:{page:1}}" active-class="active" :key="k"><a>{{v}}</a>
     </router-link>
-    <router-link role="presentation" tag="li" :to="{name:'Topics',params:{tab:'good'},query:{page:1}}" active-class="active">
-      <a>精华</a></router-link>
-    <router-link role="presentation" tag="li" :to="{name:'Topics',params:{tab:'share'},query:{page:1}}" active-class="active">
-      <a>分享</a></router-link>
-    <router-link role="presentation" tag="li" :to="{name:'Topics',params:{tab:'ask'},query:{page:1}}" active-class="active">
-      <a>问答</a></router-link>
-    <router-link role="presentation" tag="li" :to="{name:'Topics',params:{tab:'job'},query:{page:1}}" active-class="active">
-      <a>招聘</a></router-link>
-    <router-link role="presentation" tag="li" :to="{name:'Topics',params:{tab:'dev'},query:{page:1}}" active-class="active">
-      <a>客户端测试</a></router-link>
   </ul>
 </template>
 <script>
+  import constants from '../common/constants';
   export default {
-    name: 'tab-nav'
+    name: 'tab-nav',
+    data(){
+      return {
+        tabs:constants.tabMap
+      }
+    }
   }
 </script>
-
-<style>
-
-</style>

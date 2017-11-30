@@ -30,6 +30,7 @@
 <script>
   import api from '../common/api';
   import utils from '../common/utils';
+  import constants from '../common/constants';
 
   export default {
     name: 'TopicDetail',
@@ -60,14 +61,7 @@
     },
     computed: {
       tabDesc() {
-        let map = {
-          ask: '问答',
-          good: '精华',
-          job: '招聘',
-          share: '分享',
-          dev: '客户端测试',
-        };
-        return map[this.topic.tab]
+        return constants.tabMap[this.topic.tab]
       },
       createTime() {
         return utils.formatDate(this.topic.create_at);
