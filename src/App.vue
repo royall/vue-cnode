@@ -1,7 +1,7 @@
 <template>
   <section>
     <Top></Top>
-    <router-view :key="key"/>
+    <router-view/>
     <Bottom></Bottom>
   </section>
 </template>
@@ -14,10 +14,16 @@
   import Toasted from 'vue-toasted';
   import Vue from 'vue'
 
-  Vue.use(Toasted,{
-    position:'top-center',
-    duration:3000,
-    iconPack:'material'
+  Vue.use(Toasted, {
+    singleton:true,
+    position: 'top-center',
+    duration: 3000,
+    iconPack: 'material'
+  });
+
+  Vue.toasted.register('loading', 'Loading...', {
+    icon : 'hourglass_empty',
+    duration:null
   });
 
   export default {
@@ -28,7 +34,7 @@
     },
     computed: {
       key() {
-        return this.$route.name !== undefined? this.$route.name + +new Date(): this.$route + +new Date()
+        return this.$route.name !== undefined ? this.$route.name + +new Date() : this.$route + +new Date()
       }
     }
   }
@@ -36,5 +42,7 @@
 </script>
 
 <style>
- body{ background:#e1e1e1}
+  body {
+    background: #e1e1e1
+  }
 </style>

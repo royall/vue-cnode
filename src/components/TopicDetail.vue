@@ -8,13 +8,13 @@
           <router-link :to="{name:'UserIndex',params:{loginname:topic.author.loginname}}">{{topic.author.loginname}}</router-link>
           |  {{topic.visit_count}}次浏览  | 分类
           <router-link :to="{name:'Topics',params:{tab:topic.tab},query:{page:1}}">{{tabDesc}}</router-link>
-          <input v-if="topic.author_id && token" class="btn-collect btn" type="button" :value="isCollect" @click="checkCollect"/>
+          <input v-if="topic.author_id && token" class="btn-collect btn btn-info pull-right" type="button" :value="isCollect" @click="checkCollect"/>
         </div>
-        <article v-html="topic.content"></article>
+        <article class="content" v-html="topic.content"></article>
         <div class="panel panel-default">
           <div class="panel-heading">{{topic.replies.length}} 回复</div>
           <div class="panel-body">
-            <ul class="list-group">
+            <ul v-if="topic.replies.length" class="list-group">
               <li class="list-group-item" v-for="reply in topic.replies">
                 <div>
                   <router-link :to="{name:'UserIndex',params:{loginname:reply.author.loginname}}">
@@ -26,6 +26,7 @@
                 <div class="reply-content" v-html="checkContent(reply.content)"></div>
               </li>
             </ul>
+            <span v-else>暂无回复</span>
           </div>
         </div>
       </div>
@@ -129,6 +130,8 @@
     padding-top:10px
   }
   .btn-collect{
-    float:right
+    /*float:right*/
   }
+  .content{
+    margin-bottom:30px;}
 </style>

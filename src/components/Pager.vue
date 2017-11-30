@@ -3,15 +3,15 @@
   <nav aria-label="Page navigation">
     <ul class="pagination">
       <li>
-        <a href="#" aria-label="Previous">
+        <router-link :to="{name:name,params:{tab:tab},query:{page:page-1<=1?1:page-1}}" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
-        </a>
+        </router-link>
       </li>
       <router-link exact-active-class="active" tag="li" v-for="p in pageObj" :to="{name:name,params:{tab:tab},query:{page:p.page}}" :key="p.page"><a>{{p.page}}</a></router-link>
       <li>
-        <a href="#" aria-label="Next">
+        <router-link :to="{name:name,params:{tab:tab},query:{page:page+1}}" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
-        </a>
+        </router-link>
       </li>
     </ul>
   </nav>

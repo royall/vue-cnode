@@ -1,75 +1,74 @@
 import axios from 'axios';
+import Vue from 'vue';
 
-let baseUrl='https://cnodejs.org/api/v1';
 
+let loading;
 axios.interceptors.request.use(function (config) {
-  console.log('loading start');
-  // Vue.toasted.show('loading...',{
-  //   icon : 'hourglass_empty',
-  //   duration:null
-  // });
+  loading=Vue.toasted.global.loading();
   // Do something before request is sent
   return config;
 }, function (error) {
+  loading.goAway(500);
   // Do something with request error
   return Promise.reject(error);
 });
 
 // Add a response interceptor
 axios.interceptors.response.use(function (response) {
-  console.log('loading end');
-  // Vue.toasted.clear();
+  loading.goAway(500);
   // Do something with response data
   return response;
 }, function (error) {
+  loading.goAway(500);
   // Do something with response error
   return Promise.reject(error);
 });
 
+const baseUrl = 'https://cnodejs.org/api/v1';
 export default {
-  getTopics(opts){
-    return axios.get(baseUrl+'/topics',{
+  getTopics(opts) {
+    return axios.get(baseUrl + '/topics', {
       params: opts
     });
   },
-  getTopic(id,token){
-    return axios.get(baseUrl+'/topic/'+id,{
-      params:{
-        accesstoken:token
+  getTopic(id, token) {
+    return axios.get(baseUrl + '/topic/' + id, {
+      params: {
+        accesstoken: token
       }
     });
   },
-  getUser(loginname){
-    return axios.get(baseUrl+'/user/'+loginname);
+  getUser(loginname) {
+    return axios.get(baseUrl + '/user/' + loginname);
   },
-  postTopics(opts){
-    return axios.post(baseUrl+'/topics/',{
+  postTopics(opts) {
+    return axios.post(baseUrl + '/topics/', {
       params: opts
     });
   },
-  updateTopics(opts){
-    return axios.post(baseUrl+'/topics/update',{
+  updateTopics(opts) {
+    return axios.post(baseUrl + '/topics/update', {
       params: opts
     });
   },
-  validateAccesstoken(accesstoken){
-    return axios.post(baseUrl+'/accesstoken',{
-     accesstoken:accesstoken
+  validateAccesstoken(accesstoken) {
+    return axios.post(baseUrl + '/accesstoken', {
+      accesstoken: accesstoken
     });
   },
-  collect(opts){
-    return axios.post(baseUrl+'/topic_collect/collect',opts);
+  collect(opts) {
+    return axios.post(baseUrl + '/topic_collect/collect', opts);
   },
-  unCollect(opts){
-    return axios.post(baseUrl+'/topic_collect/de_collect',opts);
+  unCollect(opts) {
+    return axios.post(baseUrl + '/topic_collect/de_collect', opts);
   },
-  getCollect(loginname){
-    return axios.get(baseUrl+'/topic_collect/'+loginname);
+  getCollect(loginname) {
+    return axios.get(baseUrl + '/topic_collect/' + loginname);
   },
-  getMessageCount (accesstoken){
-    return axios.get(baseUrl+'/message/count',{
-      params:{
-        accesstoken:accesstoken
+  getMessageCount(accesstoken) {
+    return axios.get(baseUrl + '/message/count', {
+      params: {
+        accesstoken: accesstoken
       }
     });
   },

@@ -39,22 +39,37 @@
       }
     },
     mounted() {
-      let opts = {
-        tab: this.tab,
-        page: this.page
-      };
-      api.getTopics(opts).then((res) => {
-        this.topics = res.data.data;
-      }).catch((error)=>{
-        this.$toasted.clear();
-        this.$toasted.error(error);
-      });
+      this.fetch();
+    },
+    methods: {
+      fetch() {
+        let $route = this.$route,
+          query = $route.query,
+          tab = $route.params.tab || 'all',
+          page = Number(query.page) || 1,
+          opts = {
+            tab: tab,
+            page: page
+          };
+        this.tab = tab;
+        this.page = page;
+        api.getTopics(opts).then((res) => {
+          this.topics = res.data.data;
+        }).catch((error) => {
+          this.$toasted.error(error);
+        });
+      }
+    },
+    watch: {
+      $route: 'fetch'
     }
   }
 </script>
 
 <style scoped>
 
-  .list-group{ min-height: 850px}
+  .list-group {
+    min-height: 850px
+  }
 
 </style>

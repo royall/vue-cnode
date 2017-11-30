@@ -2,8 +2,11 @@
   <header class="navbar header">
     <div class="navbar-inner">
       <div class="container">
+
+        <div class="brand pull-left">
+          <a href="#/">VUE-CNode</a>
+        </div>
         <div class="right-links">
-          <a href="#/">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;
           <a v-if="!isLogin" @click="login" href="javascript:;">登录</a>
           <span v-if="isLogin" >
             <router-link :to="{name:'UserIndex',params:{loginname:userInfo.loginname}}">{{userInfo.loginname}}</router-link> ( {{msgCount}} ) &nbsp;&nbsp;|&nbsp;&nbsp;
@@ -61,6 +64,10 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+  .brand {
+    line-height:50px; color: #fff;
+    font-size: 24px;}
+  .brand a{ color: #fff; text-decoration: none}
 .header{ background:#444}
   .right-links{ color:#fff; line-height:50px; float:right}
   .right-links a{ color:#fff}
