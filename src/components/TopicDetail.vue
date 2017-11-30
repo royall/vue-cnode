@@ -5,7 +5,7 @@
         <h3 class="title">{{topic.title}}</h3>
         <div class="meta">
           发布于 {{createTime}} | 作者
-          <router-link :to="{name:'User',params:{loginname:topic.author.loginname}}">{{topic.author.loginname}}</router-link>
+          <router-link :to="{name:'UserIndex',params:{loginname:topic.author.loginname}}">{{topic.author.loginname}}</router-link>
           |  {{topic.visit_count}}次浏览  | 分类
           <router-link :to="{name:'Topics',params:{tab:topic.tab},query:{page:1}}">{{tabDesc}}</router-link>
           <input v-if="topic.author_id && token" class="btn-collect btn" type="button" :value="isCollect" @click="checkCollect"/>
@@ -17,9 +17,9 @@
             <ul class="list-group">
               <li class="list-group-item" v-for="reply in topic.replies">
                 <div>
-                  <router-link :to="{name:'User',params:{loginname:reply.author.loginname}}">
+                  <router-link :to="{name:'UserIndex',params:{loginname:reply.author.loginname}}">
                     <img class="avatar" :src="reply.author.avatar_url"/></router-link>
-                  <router-link :to="{name:'User',params:{loginname:reply.author.loginname}}">
+                  <router-link :to="{name:'UserIndex',params:{loginname:reply.author.loginname}}">
                     <strong>{{reply.author.loginname}}</strong></router-link>
                   {{formatDate(reply.create_at)}}
                 </div>
@@ -49,7 +49,7 @@
         token: utils.getToken()
       }
     },
-    created() {
+    mounted() {
       let id = this.$route.params.id;
       api.getTopic(id, this.token).then((res) => {
         console.log('res', res.data);

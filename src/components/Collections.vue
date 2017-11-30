@@ -3,11 +3,11 @@
   <div class="container">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <tab-nav></tab-nav>
+        {{loginname}} 的收藏 ({{topics.length}})
       </div>
       <div class="panel-body">
-        <TopicList :topics="topics"></TopicList>
-        <Pager :page="page" :tab="tab" name="Topics"></Pager>
+        <TopicList v-if="topics.length" :topics="topics"></TopicList>
+        <span v-else>暂无收藏的主题</span>
       </div>
     </div>
   </div>
@@ -17,44 +17,29 @@
 <script>
   import api from '../common/api';
   import TopicList from '../components/TopicList';
-  import Pager from '../components/Pager';
-  import TabNav from "./TabNav";
 
   export default {
-    name: 'Index',
+    name: 'Collections',
     components: {
-      TabNav,
       TopicList,
-      Pager
     },
     data() {
       let $route = this.$route,
-        query = $route.query,
-        tab = $route.params.tab || 'all',
-        page = Number(query.page) || 1;
+        loginname=$route.params.loginname;
       return {
         topics: [],
-        page: page,
-        tab: tab
+        loginname:loginname
       }
     },
     mounted() {
-      let opts = {
-        tab: this.tab,
-        page: this.page
-      };
-      api.getTopics(opts).then((res) => {
+      api.getCollect(this.loginname).then((res) => {
         this.topics = res.data.data;
       }).catch((error)=>{
-        this.$toasted.clear();
         this.$toasted.error(error);
       });
     }
   }
 </script>
-
 <style scoped>
-
-  .list-group{ min-height: 850px}
 
 </style>

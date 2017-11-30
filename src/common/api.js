@@ -64,6 +64,9 @@ export default {
   unCollect(opts){
     return axios.post(baseUrl+'/topic_collect/de_collect',opts);
   },
+  getCollect(loginname){
+    return axios.get(baseUrl+'/topic_collect/'+loginname);
+  },
 
 
 }

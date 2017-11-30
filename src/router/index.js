@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Index from '../components/Index'
 import TopicDetail from '../components/TopicDetail'
 import User from '../components/User'
+import UserIndex from '../components/UserIndex'
+import Collections from '../components/Collections'
 
 Vue.use(Router);
 
@@ -28,8 +30,19 @@ export default new Router({
     },
     {
       path: '/user/:loginname',
-      name: 'User',
-      component: User
+      component: User,
+      children:[
+        {
+          path:'',
+          name:'UserIndex',
+          component:UserIndex
+        },
+        {
+          path:'collections',
+          name:'Collections',
+          component:Collections
+        }
+      ]
     }
   ]
 })
