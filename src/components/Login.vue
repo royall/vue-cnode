@@ -47,14 +47,13 @@
           this.accessToken = accessToken;
           this.isShow = 0;
           this.$emit('login');
-        }).catch(error=>{
-          this.$toasted.clear();
+          window.location.reload();
+        }).catch(()=>{
           this.$toasted.error('无效的accessToken');
         });
       },
       close() {
         this.isShow = 0;
-        console.log('this',this);
       }
     },
     watch: {

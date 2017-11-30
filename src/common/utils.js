@@ -5,6 +5,7 @@ export default {
   },
   logout(){
     localStorage.removeItem('accessToken');
+    window.location.reload();
   },
   getToken(){
     return localStorage.getItem('accessToken')||'';

@@ -16,7 +16,7 @@
 
   Vue.use(Toasted,{
     position:'top-center',
-    duration:5000,
+    duration:3000,
     iconPack:'material'
   });
 

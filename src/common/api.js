@@ -57,7 +57,13 @@ export default {
     return axios.post(baseUrl+'/accesstoken',{
      accesstoken:accesstoken
     });
-  }
+  },
+  collect(opts){
+    return axios.post(baseUrl+'/topic_collect/collect',opts);
+  },
+  unCollect(opts){
+    return axios.post(baseUrl+'/topic_collect/de_collect',opts);
+  },
 
 
 }

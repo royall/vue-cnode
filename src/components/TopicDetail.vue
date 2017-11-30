@@ -4,7 +4,11 @@
       <div class="panel-body">
         <h3 class="title">{{topic.title}}</h3>
         <div class="meta">
-          发布于 {{createTime}} | 作者 <router-link :to="{name:'User',params:{loginname:topic.author.loginname}}">{{topic.author.loginname}}</router-link>  |  {{topic.visit_count}}次浏览  | 分类 <router-link :to="{name:'Topics',params:{tab:topic.tab},query:{page:1}}">{{tabDesc}}</router-link>
+          发布于 {{createTime}} | 作者
+          <router-link :to="{name:'User',params:{loginname:topic.author.loginname}}">{{topic.author.loginname}}</router-link>
+          |  {{topic.visit_count}}次浏览  | 分类
+          <router-link :to="{name:'Topics',params:{tab:topic.tab},query:{page:1}}">{{tabDesc}}</router-link>
+          <input v-if="topic.author_id && token" class="btn-collect btn" type="button" :value="isCollect" @click="checkCollect"/>
         </div>
         <article v-html="topic.content"></article>
         <div class="panel panel-default">
@@ -13,8 +17,10 @@
             <ul class="list-group">
               <li class="list-group-item" v-for="reply in topic.replies">
                 <div>
-                  <router-link :to="{name:'User',params:{loginname:reply.author.loginname}}"><img class="avatar" :src="reply.author.avatar_url"/></router-link>
-                  <router-link :to="{name:'User',params:{loginname:reply.author.loginname}}"><strong>{{reply.author.loginname}}</strong></router-link>
+                  <router-link :to="{name:'User',params:{loginname:reply.author.loginname}}">
+                    <img class="avatar" :src="reply.author.avatar_url"/></router-link>
+                  <router-link :to="{name:'User',params:{loginname:reply.author.loginname}}">
+                    <strong>{{reply.author.loginname}}</strong></router-link>
                   {{formatDate(reply.create_at)}}
                 </div>
                 <div class="reply-content" v-html="checkContent(reply.content)"></div>
@@ -38,27 +44,19 @@
       return {
         topic: {
           author: {},
-          replies:[]
-        }
+          replies: []
+        },
+        token: utils.getToken()
       }
     },
     created() {
-      let id = this.$route.params.id,
-          token=utils.getToken();
-      api.getTopic(id,token).then((res) => {
+      let id = this.$route.params.id;
+      api.getTopic(id, this.token).then((res) => {
         console.log('res', res.data);
         this.topic = res.data.data;
       }).catch(error => {
         this.$toasted.error(error);
       });
-    },
-    methods: {
-      formatDate(str) {
-        return utils.formatDate(str)
-      },
-      checkContent(str){
-        return str.replace(/(\/user\/\S+">\S+<\/a>)/g,'#$1');
-      }
     },
     computed: {
       tabDesc() {
@@ -66,9 +64,42 @@
       },
       createTime() {
         return utils.formatDate(this.topic.create_at);
+      },
+      isCollect() {
+        return this.topic.is_collect ? '取消收藏' : '收藏'
       }
-    }
-
+    },
+    methods: {
+      formatDate(str) {
+        return utils.formatDate(str)
+      },
+      checkContent(str) {
+        return str.replace(/(\/user\/\S+">\S+<\/a>)/g, '#$1');
+      },
+      checkCollect() {
+        this.topic.is_collect ? this.unCollect() : this.collect()
+      },
+      collect() {
+        api.collect({
+          accesstoken:this.token,
+          topic_id:this.topic.id
+        }).then(res=>{
+          console.log('collect',res);
+          this.topic.is_collect=true;
+          this.$toasted.success('收藏成功');
+        });
+      },
+      unCollect() {
+        api.unCollect({
+          accesstoken:this.token,
+          topic_id:this.topic.id
+        }).then(res=>{
+          console.log('unCollect',res);
+          this.topic.is_collect=false;
+          this.$toasted.success('取消收藏成功');
+        });
+      },
+    },
   }
 </script>
 
@@ -82,7 +113,8 @@
   .meta{
     border-bottom:1px solid #ccc;
     margin-bottom:20px;
-    padding-bottom:10px
+    padding-bottom:10px;
+    overflow:hidden;
   }
   .title{
     margin-bottom:20px;
@@ -95,5 +127,8 @@
   .reply-content{
     margin-left:35px;
     padding-top:10px
+  }
+  .btn-collect{
+    float:right
   }
 </style>
