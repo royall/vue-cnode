@@ -3,7 +3,6 @@ import axios from 'axios';
 let baseUrl='https://cnodejs.org/api/v1';
 
 axios.interceptors.request.use(function (config) {
-
   console.log('loading start');
   // Vue.toasted.show('loading...',{
   //   icon : 'hourglass_empty',
@@ -66,6 +65,13 @@ export default {
   },
   getCollect(loginname){
     return axios.get(baseUrl+'/topic_collect/'+loginname);
+  },
+  getMessageCount (accesstoken){
+    return axios.get(baseUrl+'/message/count',{
+      params:{
+        accesstoken:accesstoken
+      }
+    });
   },
 
 

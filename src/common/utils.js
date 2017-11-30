@@ -6,9 +6,18 @@ export default {
   },
   logout(){
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('userInfo');
     window.location.reload();
   },
   getToken(){
     return localStorage.getItem('accessToken')||'';
+  },
+  getUserInfo(){
+    let userInfo=localStorage.getItem('userInfo')||'';
+    try{
+      return JSON.parse(userInfo);
+    }catch (e){
+      return {}
+    }
   }
 }

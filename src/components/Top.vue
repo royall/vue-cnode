@@ -3,9 +3,12 @@
     <div class="navbar-inner">
       <div class="container">
         <div class="right-links">
-          <a href="#/">首页</a> |
+          <a href="#/">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;
           <a v-if="!isLogin" @click="login" href="javascript:;">登录</a>
-          <a v-if="isLogin" @click="logout" href="javascript:;">退出</a>
+          <span v-if="isLogin" >
+            <router-link :to="{name:'UserIndex',params:{loginname:userInfo.loginname}}">{{userInfo.loginname}}</router-link> ( {{msgCount}} ) &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a @click="logout" href="javascript:;">退出</a>
+          </span>
         </div>
       </div>
     </div>
@@ -16,6 +19,7 @@
 <script>
   import Login from "./Login"
   import utils from "../common/utils"
+  import api from "../common/api"
 
   export default {
     name: 'Top',
@@ -25,7 +29,10 @@
     data() {
       return {
         isLogin:utils.getToken(),
-        showLogin:0
+        showLogin:0,
+        userInfo:utils.getUserInfo(),
+        accesstoken:utils.getToken(),
+        msgCount:0
       }
     },
     methods:{
@@ -42,6 +49,11 @@
       changeLogin(){
         this.isLogin=1;
       }
+    },
+    mounted(){
+      this.accesstoken && api.getMessageCount(this.accesstoken).then(res=>{
+        this.msgCount=res.data.data;
+      });
     },
 
   }

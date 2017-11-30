@@ -44,6 +44,7 @@
         api.validateAccesstoken(accessToken).then(res => {
           console.log('validateAccesstoken', res);
           localStorage.setItem('accessToken', accessToken);
+          localStorage.setItem('userInfo', JSON.stringify(res.data));
           this.accessToken = accessToken;
           this.isShow = 0;
           this.$emit('login');

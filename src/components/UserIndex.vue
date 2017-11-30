@@ -23,7 +23,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">最近参与的话题</div>
       <div class="panel-body">
-        <TopicList v-if="!user.recent_replies.length" :topics="user.recent_replies"></TopicList>
+        <TopicList v-if="user.recent_replies.length" :topics="user.recent_replies"></TopicList>
         <span v-else>暂无最近参与的话题</span>
       </div>
     </div>
