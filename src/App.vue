@@ -8,8 +8,17 @@
 
 <script>
 
+  import './assets/iconfont/material-icons.css';
   import Top from '@/components/Top';
   import Bottom from '@/components/Bottom';
+  import Toasted from 'vue-toasted';
+  import Vue from 'vue'
+
+  Vue.use(Toasted,{
+    position:'top-center',
+    duration:5000,
+    iconPack:'material'
+  });
 
   export default {
     name: 'app',

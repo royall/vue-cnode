@@ -3,7 +3,12 @@ import axios from 'axios';
 let baseUrl='https://cnodejs.org/api/v1';
 
 axios.interceptors.request.use(function (config) {
+
   console.log('loading start');
+  // Vue.toasted.show('loading...',{
+  //   icon : 'hourglass_empty',
+  //   duration:null
+  // });
   // Do something before request is sent
   return config;
 }, function (error) {
@@ -14,6 +19,7 @@ axios.interceptors.request.use(function (config) {
 // Add a response interceptor
 axios.interceptors.response.use(function (response) {
   console.log('loading end');
+  // Vue.toasted.clear();
   // Do something with response data
   return response;
 }, function (error) {
@@ -27,8 +33,12 @@ export default {
       params: opts
     });
   },
-  getTopic(id){
-    return axios.get(baseUrl+'/topic/'+id);
+  getTopic(id,token){
+    return axios.get(baseUrl+'/topic/'+id,{
+      params:{
+        accesstoken:token
+      }
+    });
   },
   getUser(loginname){
     return axios.get(baseUrl+'/user/'+loginname);
@@ -43,6 +53,11 @@ export default {
       params: opts
     });
   },
+  validateAccesstoken(accesstoken){
+    return axios.post(baseUrl+'/accesstoken',{
+     accesstoken:accesstoken
+    });
+  }
 
 
 }

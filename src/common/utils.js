@@ -3,7 +3,10 @@ export default {
     let date=new Date(str);
     return date.toLocaleString();
   },
+  logout(){
+    localStorage.removeItem('accessToken');
+  },
   getToken(){
-    return '6fec86ef-5afc-4a92-a0a6-d3e9da6e1670'
+    return localStorage.getItem('accessToken')||'';
   }
 }

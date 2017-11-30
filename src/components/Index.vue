@@ -45,6 +45,9 @@
       };
       api.getTopics(opts).then((res) => {
         this.topics = res.data.data;
+      }).catch((error)=>{
+        this.$toasted.clear();
+        this.$toasted.error(error);
       });
     }
   }

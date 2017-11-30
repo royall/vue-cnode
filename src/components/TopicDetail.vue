@@ -43,12 +43,13 @@
       }
     },
     created() {
-      let id = this.$route.params.id;
-      api.getTopic(id).then((res) => {
+      let id = this.$route.params.id,
+          token=utils.getToken();
+      api.getTopic(id,token).then((res) => {
         console.log('res', res.data);
         this.topic = res.data.data;
-      }).catch(res => {
-        console.log('error', res)
+      }).catch(error => {
+        this.$toasted.error(error);
       });
     },
     methods: {
