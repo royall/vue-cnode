@@ -15,15 +15,15 @@
   import Vue from 'vue'
 
   Vue.use(Toasted, {
-    singleton:true,
+    singleton: true,
     position: 'top-center',
     duration: 3000,
     iconPack: 'material'
   });
 
   Vue.toasted.register('loading', 'Loading...', {
-    icon : 'hourglass_empty',
-    duration:null
+    icon: 'hourglass_empty',
+    duration: null
   });
 
   export default {
@@ -31,18 +31,13 @@
     components: {
       Top,
       Bottom
-    },
-    computed: {
-      key() {
-        return this.$route.name !== undefined ? this.$route.name + +new Date() : this.$route + +new Date()
-      }
     }
   }
 
 </script>
 
 <style>
-  body {
-    background: #e1e1e1
+  body{
+    background:#e1e1e1
   }
 </style>

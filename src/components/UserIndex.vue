@@ -56,23 +56,28 @@
       }
     },
     mounted() {
-      let loginname=this.$route.params.loginname;
-      api.getUser(loginname).then((res) => {
-        this.user = res.data.data;
-      });
-
-      api.getCollect(loginname).then((res) => {
-        this.collectTopics = res.data.data;
-      }).catch((error)=>{
-        this.$toasted.error(error);
-      });
-
+      this.fetch();
     },
     methods: {
+      fetch(){
+        let loginname=this.$route.params.loginname;
+        api.getUser(loginname).then((res) => {
+          this.user = res.data.data;
+        });
+
+        api.getCollect(loginname).then((res) => {
+          this.collectTopics = res.data.data;
+        }).catch((error)=>{
+          this.$toasted.error(error);
+        });
+      },
       formatDate(str) {
         return utils.formatDate(str)
       }
     },
+    watch: {
+      $route: 'fetch'
+    }
   }
 </script>
 
