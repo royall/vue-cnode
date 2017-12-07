@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isShow" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="background:rgba(0,0,0,0.5);opacity: 1;display:block">
+  <div v-if="this.$store.state.showLoginDialog" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="background:rgba(0,0,0,0.5);opacity: 1;display:block">
     <div class="modal-dialog" style="top: 70px">
       <div class="modal-content">
         <div class="modal-header">
@@ -10,7 +10,7 @@
         </div>
         <div class="modal-body">
           <div class="alert alert-warning" role="alert">如何获取 accessToken？ 用户登录后，在设置页面可以看到自己的 accessToken。</div>
-          <input class="form-control" placeholder="请输入accessToken" ref="accessToken" :value="accessToken"/>
+          <input class="form-control" placeholder="请输入accessToken" ref="accessToken"/>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal" @click="close">
@@ -30,14 +30,8 @@
 
   export default {
     name: 'Login',
-    props: {
-      show: Boolean
-    },
     data() {
-      return {
-        isShow: this.show,
-        accessToken: localStorage.getItem('accessToken')
-      }
+      return {}
     },
     methods: {
       submit() {
@@ -49,14 +43,8 @@
         });
       },
       close() {
-        this.isShow = false;
         this.$refs.accessToken.value = '';
-        this.$emit('update:show', this.isShow);
-      }
-    },
-    watch: {
-      show(val) {
-        this.isShow = val;
+        this.$store.commit('closeLoginDialog');
       }
     }
   }

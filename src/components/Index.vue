@@ -1,6 +1,6 @@
 <template>
-
   <div class="container">
+    <v-title>{{title}}</v-title>
     <div class="panel panel-default">
       <div class="panel-heading">
         <tab-nav></tab-nav>
@@ -11,7 +11,6 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -19,10 +18,13 @@
   import TopicList from '../components/TopicList';
   import Pager from '../components/Pager';
   import TabNav from "./TabNav";
+  import VTitle from "./Title";
+  import constants from "../common/constants";
 
   export default {
     name: 'Index',
     components: {
+      VTitle,
       TabNav,
       TopicList,
       Pager
@@ -37,6 +39,13 @@
         page: page,
         tab: tab
       }
+    },
+    computed: {
+      title() {
+        let first = this.tab === 'all' ? '' : constants.tabMap[this.tab],
+          last = 'vue-CNode';
+        return first ? first + '板块 - ' + last : last
+      },
     },
     mounted() {
       this.fetch();
@@ -68,8 +77,8 @@
 
 <style scoped>
 
-  .list-group {
-    min-height: 850px
+  .list-group{
+    min-height:850px
   }
 
 </style>

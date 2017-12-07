@@ -8,18 +8,18 @@ axios.interceptors.request.use(function (config) {
   // Do something before request is sent
   return config;
 }, function (error) {
-  loading.goAway(500);
+  loading.goAway(300);
   // Do something with request error
   return Promise.reject(error);
 });
 
 // Add a response interceptor
 axios.interceptors.response.use(function (response) {
-  loading.goAway(500);
+  loading.goAway(300);
   // Do something with response data
   return response;
 }, function (error) {
-  loading.goAway(500);
+  loading.goAway(300);
   // Do something with response error
   return Promise.reject(error);
 });
@@ -70,6 +70,11 @@ export default {
       params: {
         accesstoken: accesstoken
       }
+    });
+  },
+  upReply(replyId,accesstoken){
+    return axios.post(baseUrl + '/reply/'+replyId+'/ups',{
+      accesstoken:accesstoken
     });
   },
 

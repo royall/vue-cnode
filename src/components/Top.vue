@@ -3,7 +3,7 @@
     <div class="navbar-inner">
       <div class="container">
         <div class="brand pull-left">
-          <a href="#/">VUE-CNode</a>
+          <a href="#/">vue-CNode</a>
         </div>
         <div class="right-links">
           <a v-if="!isLogin" @click="showLoginDialog" href="javascript:;">登录</a> <span v-if="isLogin">
@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <Login :show.sync="showLogin"></Login>
+    <Login></Login>
   </header>
 </template>
 
@@ -46,7 +46,7 @@
     },
     methods: {
       showLoginDialog() {
-        this.showLogin = true;
+        this.$store.commit('showLoginDialog')
       },
       logout() {
         this.$store.commit('logout')

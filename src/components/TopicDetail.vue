@@ -1,5 +1,6 @@
 <template>
   <div class="container detail">
+    <v-title>{{topic.title}}</v-title>
     <div class="panel panel-default">
       <div class="panel-body">
         <h3 class="title">{{topic.title}}</h3>
@@ -22,8 +23,12 @@
                   <router-link :to="{name:'UserIndex',params:{loginname:reply.author.loginname}}">
                     <strong>{{reply.author.loginname}}</strong></router-link>
                   {{reply.create_at|toLocale }}
+                  <span v-if="reply.author.loginname===topic.author.loginname" class="label label-success">作者</span>
                 </div>
                 <div class="reply-content" v-html="checkContent(reply.content)"></div>
+                <div @click="agree(reply.id)" class="agree" :class="{'agree-none':!reply.ups.length}">
+                  <span class="glyphicon glyphicon-thumbs-up"> </span>{{reply.ups.length?reply.ups.length:''}}
+                </div>
               </li>
             </ul>
             <span v-else>暂无回复</span>
@@ -38,8 +43,10 @@
   import api from '../common/api';
   import utils from '../common/utils';
   import constants from '../common/constants';
+  import VTitle from "./Title";
 
   export default {
+    components: {VTitle},
     name: 'TopicDetail',
     data() {
       return {
@@ -99,6 +106,23 @@
           this.$toasted.success('取消收藏成功');
         });
       },
+      agree(id) {
+        if (!this.$store.state.isLogin) {
+          this.$toasted.show('请先登录，登录后即可点赞');
+          return setTimeout(() => {
+            this.$store.commit('showLoginDialog');
+          }, 3000);
+        }
+        api.upReply(id, this.token).then(res => {
+          console.log('upReply', res);
+          let action = res.data.action;
+          this.topic.replies.forEach(value => {
+            if (value.id === id) {
+              action === 'up' ? value.ups.push(true) : value.ups.shift()
+            }
+          });
+        });
+      },
     },
     watch: {
       token() {
@@ -131,12 +155,24 @@
   }
   .reply-content{
     margin-left:35px;
-    padding-top:10px
-  }
-  .btn-collect{
-    /*float:right*/
+    padding-top:10px;
+    padding-right:50px;
   }
   .content{
     margin-bottom:30px;
+  }
+  .agree{
+    position:absolute;
+    right:20px;
+    top:50%;
+    font-size:12px;
+    line-height:14px;
+    cursor:pointer
+  }
+  .agree-none{
+    display:none
+  }
+  .list-group-item:hover .agree-none{
+    display:block
   }
 </style>

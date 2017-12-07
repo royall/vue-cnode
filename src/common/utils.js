@@ -1,9 +1,4 @@
 export default {
-  formatDate(str){
-    if(!str){return ''}
-    let date=new Date(str);
-    return date.toLocaleString();
-  },
   getToken(){
     return localStorage.getItem('accessToken')||'';
   },

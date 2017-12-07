@@ -9,7 +9,8 @@ const store = new Vuex.Store({
   state: {
     isLogin: !!utils.getToken(),
     accessToken: utils.getToken(),
-    userInfo: utils.getUserInfo()
+    userInfo: utils.getUserInfo(),
+    showLoginDialog:false
   },
   mutations: {
     login(state, data) {
@@ -26,6 +27,12 @@ const store = new Vuex.Store({
       localStorage.removeItem('accessToken');
       localStorage.removeItem('userInfo');
     },
+    showLoginDialog(state){
+      state.showLoginDialog=true;
+    },
+    closeLoginDialog(state){
+      state.showLoginDialog=false;
+    }
   },
   actions: {
     login(context, accessToken) {

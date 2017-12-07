@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-title>@{{user.loginname}}的个人主页</v-title>
     <div class="panel panel-default">
       <div class="panel-heading">用户信息</div>
       <div class="panel-body">
@@ -33,15 +34,18 @@
 <script>
   import api from '../common/api';
   import TopicList from '../components/TopicList';
+  import VTitle from "./Title";
 
   export default {
     name: 'UserIndex',
     components:{
+      VTitle,
       TopicList
     },
     data() {
       return {
         user:{
+          loginname:'-',
           recent_topics:[],
           recent_replies:[],
           create_at:''
