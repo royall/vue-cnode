@@ -9,7 +9,7 @@
           github:<a class="dark" :href="githubUrl" target="_blank">@{{user.githubUsername}}</a><br>
           {{user.score}}积分<br>
           <router-link :to="{name:'Collections'}">收藏的主题 <span v-if="collectTopics.length">({{collectTopics.length}})</span> </router-link><br>
-          注册时间：{{formatDate(user.create_at)}}
+          注册时间：{{user.create_at|toLocale}}
         </div>
       </div>
     </div>
@@ -32,7 +32,6 @@
 
 <script>
   import api from '../common/api';
-  import utils from '../common/utils';
   import TopicList from '../components/TopicList';
 
   export default {
@@ -70,9 +69,6 @@
         }).catch((error)=>{
           this.$toasted.error(error);
         });
-      },
-      formatDate(str) {
-        return utils.formatDate(str)
       }
     },
     watch: {

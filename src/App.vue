@@ -12,7 +12,9 @@
   import Top from '@/components/Top';
   import Bottom from '@/components/Bottom';
   import Toasted from 'vue-toasted';
-  import Vue from 'vue'
+  import Vue from 'vue';
+  import './common/filter';
+  import store from './store/index';
 
   Vue.use(Toasted, {
     singleton: true,
@@ -31,7 +33,8 @@
     components: {
       Top,
       Bottom
-    }
+    },
+    store
   }
 
 </script>

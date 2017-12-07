@@ -4,11 +4,6 @@ export default {
     let date=new Date(str);
     return date.toLocaleString();
   },
-  logout(){
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('userInfo');
-    window.location.reload();
-  },
   getToken(){
     return localStorage.getItem('accessToken')||'';
   },

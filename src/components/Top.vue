@@ -2,20 +2,18 @@
   <header class="navbar header">
     <div class="navbar-inner">
       <div class="container">
-
         <div class="brand pull-left">
           <a href="#/">VUE-CNode</a>
         </div>
         <div class="right-links">
-          <a v-if="!isLogin" @click="login" href="javascript:;">登录</a>
-          <span v-if="isLogin" >
+          <a v-if="!isLogin" @click="showLoginDialog" href="javascript:;">登录</a> <span v-if="isLogin">
             <router-link :to="{name:'UserIndex',params:{loginname:userInfo.loginname}}">{{userInfo.loginname}}</router-link> ( {{msgCount}} ) &nbsp;&nbsp;|&nbsp;&nbsp;
             <a @click="logout" href="javascript:;">退出</a>
           </span>
         </div>
       </div>
     </div>
-    <Login :show="showLogin" @changeShow="changeLoginShow" @login="changeLogin"></Login>
+    <Login :show.sync="showLogin"></Login>
   </header>
 </template>
 
@@ -26,49 +24,63 @@
 
   export default {
     name: 'Top',
-    components:{
+    components: {
       Login
     },
     data() {
       return {
-        isLogin:utils.getToken(),
-        showLogin:0,
-        userInfo:utils.getUserInfo(),
-        accesstoken:utils.getToken(),
-        msgCount:0
+        showLogin: false,
+        msgCount: 0
       }
     },
-    methods:{
-      login(){
-        this.showLogin=1;
+    computed:{
+      isLogin(){
+        return this.$store.state.isLogin
       },
-      logout(){
-        this.isLogin=0;
-        utils.logout();
+      userInfo(){
+        return this.$store.state.userInfo
       },
-      changeLoginShow(val){
-        this.showLogin=val;
-      },
-      changeLogin(){
-        this.isLogin=1;
+      accesstoken(){
+        return this.$store.state.accesstoken
       }
     },
-    mounted(){
-      this.accesstoken && api.getMessageCount(this.accesstoken).then(res=>{
-        this.msgCount=res.data.data;
+    methods: {
+      showLoginDialog() {
+        this.showLogin = true;
+      },
+      logout() {
+        this.$store.commit('logout')
+      }
+    },
+    mounted() {
+      this.accesstoken && api.getMessageCount(this.accesstoken).then(res => {
+        this.msgCount = res.data.data;
       });
-    },
+    }
 
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-  .brand {
-    line-height:50px; color: #fff;
-    font-size: 24px;}
-  .brand a{ color: #fff; text-decoration: none}
-.header{ background:#444}
-  .right-links{ color:#fff; line-height:50px; float:right}
-  .right-links a{ color:#fff}
+  .brand{
+    line-height:50px;
+    color:#fff;
+    font-size:24px;
+  }
+  .brand a{
+    color:#fff;
+    text-decoration:none
+  }
+  .header{
+    background:#444
+  }
+  .right-links{
+    color:#fff;
+    line-height:50px;
+    float:right
+  }
+  .right-links a{
+    color:#fff
+  }
 </style>

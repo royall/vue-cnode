@@ -27,10 +27,11 @@
 </template>
 <script>
   import api from '../common/api'
+
   export default {
     name: 'Login',
     props: {
-      show: Number
+      show: Boolean
     },
     data() {
       return {
@@ -41,28 +42,21 @@
     methods: {
       submit() {
         let accessToken = this.$refs.accessToken.value;
-        api.validateAccesstoken(accessToken).then(res => {
-          console.log('validateAccesstoken', res);
-          localStorage.setItem('accessToken', accessToken);
-          localStorage.setItem('userInfo', JSON.stringify(res.data));
-          this.accessToken = accessToken;
-          this.isShow = 0;
-          this.$emit('login');
-          window.location.reload();
-        }).catch(()=>{
-          this.$toasted.error('无效的accessToken');
+        this.$store.dispatch('login', accessToken).then(() => {
+          this.close();
+        }).catch(() => {
+          console.log('login fail');
         });
       },
       close() {
-        this.isShow = 0;
+        this.isShow = false;
+        this.$refs.accessToken.value = '';
+        this.$emit('update:show', this.isShow);
       }
     },
     watch: {
       show(val) {
         this.isShow = val;
-      },
-      isShow(val) {
-        this.$emit('changeShow', val);
       }
     }
   }
