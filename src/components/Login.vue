@@ -26,7 +26,6 @@
 
 </template>
 <script>
-  import api from '../common/api'
 
   export default {
     name: 'Login',

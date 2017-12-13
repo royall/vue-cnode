@@ -41,7 +41,6 @@
 
 <script>
   import api from '../common/api';
-  import utils from '../common/utils';
   import constants from '../common/constants';
   import VTitle from "./Title";
 

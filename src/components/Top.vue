@@ -19,7 +19,6 @@
 
 <script>
   import Login from "./Login"
-  import utils from "../common/utils"
   import api from "../common/api"
 
   export default {

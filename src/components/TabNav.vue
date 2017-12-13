@@ -6,6 +6,7 @@
 </template>
 <script>
   import constants from '../common/constants';
+
   export default {
     name: 'tab-nav',
     data(){
