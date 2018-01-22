@@ -13,7 +13,7 @@
   import constants from '../common/constants'
 
   export default {
-    name: 'TopicList',
+    name: 'topic-list',
     props:{
       topics:Array
     },

@@ -26,7 +26,7 @@
 </template>
 <script>
   export default {
-    name: 'Pager',
+    name: 'pager',
     props: {
       page: Number,
       tab: String,

@@ -3,11 +3,11 @@
     <v-title>{{title}}</v-title>
     <div class="panel panel-default">
       <div class="panel-heading">
-        <tab-nav></tab-nav>
+        <tab-nav/>
       </div>
       <div class="panel-body">
-        <TopicList :topics="topics"></TopicList>
-        <Pager :page="page" :tab="tab" name="Topics"></Pager>
+        <topic-list :topics="topics"/>
+        <pager :page="page" :tab="tab" name="Topics"/>
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@
   import TopicList from '../components/TopicList';
   import Pager from '../components/Pager';
   import TabNav from "./TabNav";
-  import VTitle from "./Title";
+  import VTitle from "./VTitle";
   import constants from "../common/constants";
 
   export default {

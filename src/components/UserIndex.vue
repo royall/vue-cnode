@@ -17,14 +17,14 @@
     <div class="panel panel-default">
       <div class="panel-heading">最近创建的话题</div>
       <div class="panel-body">
-        <TopicList  v-if="user.recent_topics.length" :topics="user.recent_topics"></TopicList>
+        <topic-list  v-if="user.recent_topics.length" :topics="user.recent_topics"/>
         <span v-else>暂无最近创建的话题</span>
       </div>
     </div>
     <div class="panel panel-default">
       <div class="panel-heading">最近参与的话题</div>
       <div class="panel-body">
-        <TopicList v-if="user.recent_replies.length" :topics="user.recent_replies"></TopicList>
+        <topic-list v-if="user.recent_replies.length" :topics="user.recent_replies"/>
         <span v-else>暂无最近参与的话题</span>
       </div>
     </div>
@@ -34,10 +34,10 @@
 <script>
   import api from '../common/api';
   import TopicList from '../components/TopicList';
-  import VTitle from "./Title";
+  import VTitle from "./VTitle";
 
   export default {
-    name: 'UserIndex',
+    name: 'user-index',
     components:{
       VTitle,
       TopicList

@@ -16,10 +16,10 @@
 <script>
   import api from '../common/api';
   import TopicList from '../components/TopicList';
-  import VTitle from "./Title";
+  import VTitle from "./VTitle";
 
   export default {
-    name: 'Collections',
+    name: 'collections',
     components: {
       VTitle,
       TopicList,

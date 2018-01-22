@@ -42,11 +42,11 @@
 <script>
   import api from '../common/api';
   import constants from '../common/constants';
-  import VTitle from "./Title";
+  import VTitle from "./VTitle";
 
   export default {
     components: {VTitle},
-    name: 'TopicDetail',
+    name: 'topic-detail',
     data() {
       return {
         topic: {

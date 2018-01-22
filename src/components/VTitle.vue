@@ -1,6 +1,6 @@
 <template>
   <h1 v-if="false">
-    <slot></slot>
+    <slot/>
   </h1>
 </template>
 

@@ -1,20 +1,20 @@
 <template>
   <section>
-    <Top></Top>
+    <top/>
     <router-view/>
-    <Bottom></Bottom>
+    <bottom/>
   </section>
 </template>
 
 <script>
 
   import './assets/iconfont/material-icons.css';
-  import Top from '@/components/Top';
-  import Bottom from '@/components/Bottom';
+  import Top from './components/Top';
   import Toasted from 'vue-toasted';
   import Vue from 'vue';
   import './common/filter';
   import store from './store/index';
+  import Bottom from "./components/Bottom";
 
   Vue.use(Toasted, {
     singleton: true,
@@ -31,8 +31,8 @@
   export default {
     name: 'app',
     components: {
+      Bottom,
       Top,
-      Bottom
     },
     store
   }

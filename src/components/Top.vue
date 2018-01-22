@@ -6,23 +6,23 @@
           <a href="#/">vue-CNode</a>
         </div>
         <div class="right-links">
-          <a v-if="!isLogin" @click="showLoginDialog" href="javascript:;">登录</a> <span v-if="isLogin">
+          <a v-if="!isLogin" @click="showLoginDialog" href="javascript:">登录</a> <span v-if="isLogin">
             <router-link :to="{name:'UserIndex',params:{loginname:userInfo.loginname}}">{{userInfo.loginname}}</router-link> ( {{msgCount}} ) &nbsp;&nbsp;|&nbsp;&nbsp;
-            <a @click="logout" href="javascript:;">退出</a>
+            <a @click="logout" href="javascript:">退出</a>
           </span>
         </div>
       </div>
     </div>
-    <Login></Login>
+    <login/>
   </header>
 </template>
 
 <script>
-  import Login from "./Login"
   import api from "../common/api"
+  import Login from "./Login";
 
   export default {
-    name: 'Top',
+    name: 'top',
     components: {
       Login
     },
