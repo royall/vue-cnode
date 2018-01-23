@@ -13,18 +13,18 @@
         </div>
       </div>
     </div>
-    <login/>
+    <base-login/>
   </header>
 </template>
 
 <script>
   import api from "../common/api"
-  import Login from "./Login";
+  import BaseLogin from "./BaseLogin";
 
   export default {
-    name: 'top',
+    name: 'base-top',
     components: {
-      Login
+      BaseLogin
     },
     data() {
       return {

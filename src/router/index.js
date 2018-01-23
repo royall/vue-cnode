@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '../components/Index'
+import Index from '../components/PageIndex'
 import TopicDetail from '../components/TopicDetail'
-import User from '../components/User'
+import User from '../components/PageUser'
 import UserIndex from '../components/UserIndex'
-import Collections from '../components/Collections'
+import Collections from '../components/PageCollections'
 
 Vue.use(Router);
 

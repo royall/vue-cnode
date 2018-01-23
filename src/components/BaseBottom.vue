@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'bottom',
+  name: 'base-bottom',
   data () {
     return {
       topic:{}

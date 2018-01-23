@@ -6,7 +6,7 @@
         {{loginname}} 的收藏 ({{topics.length}})
       </div>
       <div class="panel-body">
-        <TopicList v-if="topics.length" :topics="topics"></TopicList>
+        <topic-list v-if="topics.length" :topics="topics"/>
         <span v-else>暂无收藏的主题</span>
       </div>
     </div>
@@ -19,7 +19,7 @@
   import VTitle from "./VTitle";
 
   export default {
-    name: 'collections',
+    name: 'page-collections',
     components: {
       VTitle,
       TopicList,

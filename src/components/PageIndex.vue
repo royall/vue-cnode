@@ -16,13 +16,13 @@
 <script>
   import api from '../common/api';
   import TopicList from '../components/TopicList';
-  import Pager from '../components/Pager';
+  import Pager from './BasePager';
   import TabNav from "./TabNav";
   import VTitle from "./VTitle";
   import constants from "../common/constants";
 
   export default {
-    name: 'Index',
+    name: 'page-index',
     components: {
       VTitle,
       TabNav,

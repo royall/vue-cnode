@@ -28,7 +28,7 @@
 <script>
 
   export default {
-    name: 'login',
+    name: 'base-login',
     data() {
       return {}
     },
