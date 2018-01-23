@@ -15,5 +15,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.footer{ background:#fff; height:100px}
+.footer{ background:#fff;}
 </style>

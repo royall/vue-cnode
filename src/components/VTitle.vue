@@ -10,7 +10,7 @@
     created() {
       this.updateTitle()
     },
-    beforeUpdate() {
+    updated() {
       this.updateTitle()
     },
     methods: {
