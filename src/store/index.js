@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import api from '../common/api'
 import utils from "../common/utils"
+import matations from './mutation-types'
 
 Vue.use(Vuex);
 
@@ -13,24 +14,24 @@ const store = new Vuex.Store({
     showLoginDialog:false
   },
   mutations: {
-    login(state, data) {
+    [matations.LOGIN](state, data) {
       state.isLogin = true;
       state.accessToken = data.accessToken;
       state.userInfo = data.userInfo;
       localStorage.setItem('accessToken', data.accessToken);
       localStorage.setItem('userInfo', JSON.stringify(data.userInfo));
     },
-    logout(state) {
+    [matations.LOGOUT](state) {
       state.isLogin = false;
       state.accessToken = '';
       state.userInfo = null;
       localStorage.removeItem('accessToken');
       localStorage.removeItem('userInfo');
     },
-    showLoginDialog(state){
+    [matations.SHOWLOGINDIALOG](state){
       state.showLoginDialog=true;
     },
-    closeLoginDialog(state){
+    [matations.CLOSELOGINDIALOG](state){
       state.showLoginDialog=false;
     }
   },
@@ -39,7 +40,7 @@ const store = new Vuex.Store({
       return new Promise(function (resolve, reject) {
         api.validateAccesstoken(accessToken).then(res => {
           console.log('validateAccesstoken', res);
-          context.commit('login', {
+          context.commit(matations.LOGIN, {
             accessToken: accessToken,
             userInfo: res.data
           });

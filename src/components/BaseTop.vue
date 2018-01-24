@@ -20,6 +20,7 @@
 <script>
   import api from "../common/api"
   import BaseLogin from "./BaseLogin";
+  import mutations from '../store/mutation-types'
 
   export default {
     name: 'base-top',
@@ -45,10 +46,10 @@
     },
     methods: {
       showLoginDialog() {
-        this.$store.commit('showLoginDialog')
+        this.$store.commit(mutations.SHOWLOGINDIALOG)
       },
       logout() {
-        this.$store.commit('logout')
+        this.$store.commit(mutations.LOGOUT)
       }
     },
     mounted() {

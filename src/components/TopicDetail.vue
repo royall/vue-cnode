@@ -43,6 +43,7 @@
   import api from '../common/api';
   import constants from '../common/constants';
   import VTitle from "./VTitle";
+  import mutations from '../store/mutation-types'
 
   export default {
     components: {VTitle},
@@ -109,7 +110,7 @@
         if (!this.$store.state.isLogin) {
           this.$toasted.show('请先登录，登录后即可点赞');
           return setTimeout(() => {
-            this.$store.commit('showLoginDialog');
+            this.$store.commit(mutations.SHOWLOGINDIALOG);
           }, 3000);
         }
         api.upReply(id, this.token).then(res => {

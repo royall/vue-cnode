@@ -26,6 +26,7 @@
 
 </template>
 <script>
+  import mutations from '../store/mutation-types'
 
   export default {
     name: 'base-login',
@@ -43,7 +44,7 @@
       },
       close() {
         this.$refs.accessToken.value = '';
-        this.$store.commit('closeLoginDialog');
+        this.$store.commit(mutations.CLOSELOGINDIALOG);
       }
     }
   }
