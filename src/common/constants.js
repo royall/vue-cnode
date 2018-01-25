@@ -8,3 +8,10 @@ export default {
     dev: '客户端测试',
   }
 }
+
+export const mutations={
+  LOGIN:'LOGIN',
+  LOGOUT:'LOGOUT',
+  SHOWLOGINDIALOG:'SHOWLOGINDIALOG',
+  CLOSELOGINDIALOG:'CLOSELOGINDIALOG'
+};

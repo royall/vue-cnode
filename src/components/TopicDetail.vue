@@ -43,7 +43,7 @@
   import api from '../common/api';
   import constants from '../common/constants';
   import VTitle from "./VTitle";
-  import mutations from '../store/mutation-types'
+  import {mutations} from '../common/constants'
 
   export default {
     components: {VTitle},

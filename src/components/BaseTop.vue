@@ -20,7 +20,7 @@
 <script>
   import api from "../common/api"
   import BaseLogin from "./BaseLogin";
-  import mutations from '../store/mutation-types'
+  import {mutations} from '../common/constants'
 
   export default {
     name: 'base-top',
