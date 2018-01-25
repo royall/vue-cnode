@@ -39,7 +39,7 @@ export default {
     });
   },
   getUser(loginname) {
-    return axios.get(baseUrl + '/user1/' + loginname);
+    return axios.get(baseUrl + '/user/' + loginname);
   },
   postTopics(opts) {
     return axios.post(baseUrl + '/topics/', {
