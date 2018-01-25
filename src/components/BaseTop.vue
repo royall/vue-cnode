@@ -20,7 +20,7 @@
 <script>
   import api from "../common/api"
   import BaseLogin from "./BaseLogin";
-  import mutations from '../store/mutation-types'
+  import {mutations} from '../common/constants'
 
   export default {
     name: 'base-top',
@@ -33,14 +33,14 @@
         msgCount: 0
       }
     },
-    computed:{
-      isLogin(){
+    computed: {
+      isLogin() {
         return this.$store.state.isLogin
       },
-      userInfo(){
+      userInfo() {
         return this.$store.state.userInfo
       },
-      accesstoken(){
+      accesstoken() {
         return this.$store.state.accesstoken
       }
     },
@@ -52,12 +52,12 @@
         this.$store.commit(mutations.LOGOUT)
       }
     },
-    mounted() {
-      this.accesstoken && api.getMessageCount(this.accesstoken).then(res => {
+    async mounted() {
+      if (this.accesstoken) {
+        const res = api.getMessageCount(this.accesstoken);
         this.msgCount = res.data.data;
-      });
+      }
     }
-
   }
 </script>
 

@@ -51,7 +51,7 @@
       this.fetch();
     },
     methods: {
-      fetch() {
+      async fetch() {
         let $route = this.$route,
           query = $route.query,
           tab = $route.params.tab || 'all',
@@ -62,11 +62,12 @@
           };
         this.tab = tab;
         this.page = page;
-        api.getTopics(opts).then((res) => {
+        try{
+          const res=await api.getTopics(opts);
           this.topics = res.data.data;
-        }).catch((error) => {
-          this.$toasted.error(error);
-        });
+        }catch (e){
+          this.$toasted.error(e);
+        }
       }
     },
     watch: {

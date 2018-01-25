@@ -26,18 +26,19 @@
     },
     data() {
       let $route = this.$route,
-        loginname=$route.params.loginname;
+        loginname = $route.params.loginname;
       return {
         topics: [],
-        loginname:loginname
+        loginname: loginname
       }
     },
-    mounted() {
-      api.getCollect(this.loginname).then((res) => {
+    async mounted() {
+      try {
+        const res = await api.getCollect(this.loginname);
         this.topics = res.data.data;
-      }).catch((error)=>{
-        this.$toasted.error(error);
-      });
+      } catch (e) {
+        this.$toasted.error(e);
+      }
     }
   }
 </script>

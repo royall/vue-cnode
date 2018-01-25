@@ -26,7 +26,7 @@
 
 </template>
 <script>
-  import mutations from '../store/mutation-types'
+  import {mutations} from '../common/constants'
 
   export default {
     name: 'base-login',
@@ -34,13 +34,13 @@
       return {}
     },
     methods: {
-      submit() {
-        let accessToken = this.$refs.accessToken.value;
-        this.$store.dispatch('login', accessToken).then(() => {
-          this.close();
-        }).catch(() => {
+      async submit() {
+        const accessToken = this.$refs.accessToken.value;
+        try {
+          await this.$store.dispatch('login', accessToken) && this.close();
+        } catch (e) {
           console.log('login fail');
-        });
+        }
       },
       close() {
         this.$refs.accessToken.value = '';

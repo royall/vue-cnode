@@ -43,7 +43,7 @@
   import api from '../common/api';
   import constants from '../common/constants';
   import VTitle from "./VTitle";
-  import mutations from '../store/mutation-types'
+  import {mutations} from '../common/constants'
 
   export default {
     components: {VTitle},
@@ -71,14 +71,15 @@
       }
     },
     methods: {
-      fetch() {
+      async fetch() {
         let id = this.$route.params.id;
-        api.getTopic(id, this.token).then((res) => {
+        try {
+          const res = await api.getTopic(id, this.token);
           console.log('res', res.data);
           this.topic = res.data.data;
-        }).catch(error => {
-          this.$toasted.error(error);
-        });
+        } catch (e) {
+          this.$toasted.error(e);
+        }
       },
       checkContent(str) {
         return str.replace(/(\/user\/\S+">\S+<\/a>)/g, '#$1');
@@ -86,41 +87,44 @@
       checkCollect() {
         this.topic.is_collect ? this.unCollect() : this.collect()
       },
-      collect() {
-        api.collect({
-          accesstoken: this.token,
-          topic_id: this.topic.id
-        }).then(res => {
+      async collect() {
+        try {
+          const res = await api.collect({
+            accesstoken: this.token,
+            topic_id: this.topic.id
+          });
           console.log('collect', res);
           this.topic.is_collect = true;
           this.$toasted.success('收藏成功');
-        });
+        } catch (e) {
+        }
       },
-      unCollect() {
-        api.unCollect({
-          accesstoken: this.token,
-          topic_id: this.topic.id
-        }).then(res => {
+      async unCollect() {
+        try {
+          const res = await api.unCollect({
+            accesstoken: this.token,
+            topic_id: this.topic.id
+          });
           console.log('unCollect', res);
           this.topic.is_collect = false;
-          this.$toasted.success('取消收藏成功');
-        });
+          this.$toasted.success('取消收藏成功')
+        } catch (e) {
+        }
       },
-      agree(id) {
+      async agree(id) {
         if (!this.$store.state.isLogin) {
           this.$toasted.show('请先登录，登录后即可点赞');
           return setTimeout(() => {
             this.$store.commit(mutations.SHOWLOGINDIALOG);
           }, 3000);
         }
-        api.upReply(id, this.token).then(res => {
-          console.log('upReply', res);
-          let action = res.data.action;
-          this.topic.replies.forEach(value => {
-            if (value.id === id) {
-              action === 'up' ? value.ups.push(true) : value.ups.shift()
-            }
-          });
+        const res = await api.upReply(id, this.token);
+        console.log('upReply', res);
+        let action = res.data.action;
+        this.topic.replies.forEach(value => {
+          if (value.id === id) {
+            action === 'up' ? value.ups.push(true) : value.ups.shift()
+          }
         });
       },
     },

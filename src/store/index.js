@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import api from '../common/api'
 import utils from "../common/utils"
-import matations from './mutation-types'
+import {mutations} from '../common/constants'
 
 Vue.use(Vuex);
 
@@ -11,45 +11,43 @@ const store = new Vuex.Store({
     isLogin: !!utils.getToken(),
     accessToken: utils.getToken(),
     userInfo: utils.getUserInfo(),
-    showLoginDialog:false
+    showLoginDialog: false
   },
   mutations: {
-    [matations.LOGIN](state, data) {
+    [mutations.LOGIN](state, data) {
       state.isLogin = true;
       state.accessToken = data.accessToken;
       state.userInfo = data.userInfo;
       localStorage.setItem('accessToken', data.accessToken);
       localStorage.setItem('userInfo', JSON.stringify(data.userInfo));
     },
-    [matations.LOGOUT](state) {
+    [mutations.LOGOUT](state) {
       state.isLogin = false;
       state.accessToken = '';
       state.userInfo = null;
       localStorage.removeItem('accessToken');
       localStorage.removeItem('userInfo');
     },
-    [matations.SHOWLOGINDIALOG](state){
-      state.showLoginDialog=true;
+    [mutations.SHOWLOGINDIALOG](state) {
+      state.showLoginDialog = true;
     },
-    [matations.CLOSELOGINDIALOG](state){
-      state.showLoginDialog=false;
+    [mutations.CLOSELOGINDIALOG](state) {
+      state.showLoginDialog = false;
     }
   },
   actions: {
-    login(context, accessToken) {
-      return new Promise(function (resolve, reject) {
-        api.validateAccesstoken(accessToken).then(res => {
-          console.log('validateAccesstoken', res);
-          context.commit(matations.LOGIN, {
-            accessToken: accessToken,
-            userInfo: res.data
-          });
-          resolve();
-        }).catch(() => {
-          Vue.toasted.error('无效的accessToken');
-          reject();
+    async login(context, accessToken) {
+      try {
+        const res = await api.validateAccesstoken(accessToken);
+        console.log('validateAccesstoken', res);
+        context.commit(mutations.LOGIN, {
+          accessToken: accessToken,
+          userInfo: res.data
         });
-      })
+        return res;
+      } catch (e) {
+        Vue.toasted.error('无效的accessToken');
+      }
     }
   },
 });
