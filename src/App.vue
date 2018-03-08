@@ -9,6 +9,7 @@
 <script>
 
   import './assets/iconfont/material-icons.css';
+  import './assets/css/animate.css';
   import BaseTop from './components/BaseTop';
   import Toasted from 'vue-toasted';
   import Vue from 'vue';

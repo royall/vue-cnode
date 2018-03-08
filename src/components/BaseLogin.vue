@@ -1,5 +1,8 @@
 <template>
-  <div v-if="this.$store.state.showLoginDialog" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="background:rgba(0,0,0,0.5);opacity: 1;display:block">
+  <transition name="custom-classes-transition"
+    enter-active-class="animated bounceInRight"
+    leave-active-class="animated bounceOutRight">
+  <div v-if="this.$store.state.showLoginDialog" class="modal" id="myModal" tabindex="-1" style="background:rgba(0,0,0,0.5);display:block">
     <div class="modal-dialog" style="top: 70px">
       <div class="modal-content">
         <div class="modal-header">
@@ -23,6 +26,8 @@
       </div>
     </div>
   </div>
+  </transition>
+
 
 </template>
 <script>
@@ -49,3 +54,23 @@
     }
   }
 </script>
+
+<style>
+  .bounce-enter-active {
+    animation: bounce-in .5s;
+  }
+  .bounce-leave-active {
+    animation: bounce-in .5s reverse;
+  }
+  @keyframes bounce-in {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+</style>
