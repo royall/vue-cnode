@@ -1,7 +1,9 @@
 <template>
   <section>
     <base-top/>
-    <router-view/>
+    <transition appear enter-active-class="animated fadeIn" leave-active-class="animated zoomOut" mode="out-in">
+      <router-view/>
+    </transition>
     <base-bottom/>
   </section>
 </template>

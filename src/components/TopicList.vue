@@ -35,15 +35,14 @@
     height:30px
   }
   .list-item {
-    transition: all 1s;
-    margin-right: 10px;
+    transition: all .5s;
   }
   .list-enter, .list-leave-to
     /* .list-complete-leave-active for below version 2.1.8 */ {
     opacity: 0;
     transform: translateY(30px);
   }
-  .list-leave-active {
-    position: absolute;
+  .list-leave-active{
+    position:absolute;
   }
 </style>
