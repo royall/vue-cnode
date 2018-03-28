@@ -3,7 +3,7 @@
     <div class="navbar-inner">
       <div class="container">
         <div class="brand pull-left">
-          <a href="#/">CNode</a>
+          <a href="#/"></a>
         </div>
         <div class="right-links">
           <a v-if="!isLogin" @click="showLoginDialog" href="javascript:">登录</a> <span v-if="isLogin">
