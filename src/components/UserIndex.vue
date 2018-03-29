@@ -64,16 +64,16 @@
     },
     methods: {
       async fetch() {
-        let loginname = this.$route.params.loginname;
+        let loginname = this.$route.params.loginname, res, collectRes;
         try {
-          const res = await api.getUser(loginname);
+          res = await api.getUser(loginname);
           this.user = res.data.data;
         } catch (e) {
           this.$toasted.error(e);
         }
 
         try {
-          const collectRes =await api.getCollect(loginname);
+          collectRes = await api.getCollect(loginname);
           this.collectTopics = collectRes.data.data;
         } catch (e) {
           this.$toasted.error(e);

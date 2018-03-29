@@ -33,12 +33,14 @@
       }
     },
     async mounted() {
+      let res;
       try {
-        const res = await api.getCollect(this.loginname);
+        res = await api.getCollect(this.loginname);
         this.topics = res.data.data;
       } catch (e) {
         this.$toasted.error(e);
       }
+
     }
   }
 </script>

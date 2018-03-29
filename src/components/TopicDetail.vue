@@ -72,9 +72,10 @@
     },
     methods: {
       async fetch() {
-        let id = this.$route.params.id;
+        let id = this.$route.params.id,
+          res;
         try {
-          const res = await api.getTopic(id, this.token);
+          res = await api.getTopic(id, this.token);
           console.log('res', res.data);
           this.topic = res.data.data;
         } catch (e) {
@@ -88,8 +89,9 @@
         this.topic.is_collect ? this.unCollect() : this.collect()
       },
       async collect() {
+        let res;
         try {
-          const res = await api.collect({
+          res = await api.collect({
             accesstoken: this.token,
             topic_id: this.topic.id
           });
@@ -97,11 +99,13 @@
           this.topic.is_collect = true;
           this.$toasted.success('收藏成功');
         } catch (e) {
+          this.$toasted.error(e);
         }
       },
       async unCollect() {
+        let res;
         try {
-          const res = await api.unCollect({
+          res = await api.unCollect({
             accesstoken: this.token,
             topic_id: this.topic.id
           });
@@ -109,6 +113,7 @@
           this.topic.is_collect = false;
           this.$toasted.success('取消收藏成功')
         } catch (e) {
+          this.$toasted.error(e);
         }
       },
       async agree(id) {
@@ -118,14 +123,19 @@
             this.$store.commit(mutations.SHOWLOGINDIALOG);
           }, 3000);
         }
-        const res = await api.upReply(id, this.token);
-        console.log('upReply', res);
-        let action = res.data.action;
-        this.topic.replies.forEach(value => {
-          if (value.id === id) {
-            action === 'up' ? value.ups.push(true) : value.ups.shift()
-          }
-        });
+        let res;
+        try {
+          res = await api.upReply(id, this.token);
+          console.log('upReply', res);
+          let action = res.data.action;
+          this.topic.replies.forEach(value => {
+            if (value.id === id) {
+              action === 'up' ? value.ups.push(true) : value.ups.shift()
+            }
+          });
+        } catch (e) {
+          this.$toasted.error(e);
+        }
       },
     },
     watch: {

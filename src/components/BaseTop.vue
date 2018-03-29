@@ -54,8 +54,13 @@
     },
     async mounted() {
       if (this.accesstoken) {
-        const res = api.getMessageCount(this.accesstoken);
-        this.msgCount = res.data.data;
+        let res;
+        try {
+          res = await api.getMessageCount(this.accesstoken);
+          this.msgCount = res.data.data;
+        } catch (e) {
+          this.$toasted.error(e);
+        }
       }
     }
   }

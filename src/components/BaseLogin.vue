@@ -44,7 +44,7 @@
         try {
           await this.$store.dispatch('login', accessToken) && this.close();
         } catch (e) {
-          console.log('login fail');
+          this.$toasted.error(e);
         }
       },
       close() {
